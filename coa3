@@ -1,0 +1,44 @@
+import struct
+
+def float_to_ieee754(num: float, precision: str) -> str:
+    """
+    Converts a floating-point number to its IEEE 754 binary string representation.
+    """
+    if precision == "single":
+        [packed] = struct.unpack('!I', struct.pack('!f', num))
+        return f"{packed:032b}"
+    elif precision == "double":
+        [packed] = struct.unpack('!Q', struct.pack('!d', num))
+        return f"{packed:064b}"
+    else:
+        raise ValueError("Invalid precision type specified.")
+
+def format_ieee754(bits: str, precision: str) -> str:
+    """
+    Formats the raw binary string into Sign, Exponent, and Mantissa components.
+    """
+    if precision == "single":
+        return f"Sign: {bits[0]} | Exponent: {bits[1:9]} | Mantissa: {bits[9:]}"
+    elif precision == "double":
+        return f"Sign: {bits[0]} | Exponent: {bits[1:12]} | Mantissa: {bits[12:]}"
+    else:
+        return bits
+
+# --- Main Program ---
+if __name__ == "__main__":
+    try:
+        user_input = input("Enter a floating-point number: ")
+        num = float(user_input)
+
+        single_bits = float_to_ieee754(num, "single")
+        print("\nSingle Precision (32-bit):")
+        print(single_bits)
+        print(format_ieee754(single_bits, "single"))
+
+        double_bits = float_to_ieee754(num, "double")
+        print("\nDouble Precision (64-bit):")
+        print(double_bits)
+        print(format_ieee754(double_bits, "double"))
+
+    except ValueError:
+        print("Invalid input! Please enter a valid floating-point number.")
