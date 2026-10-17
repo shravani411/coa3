@@ -1,9 +1,6 @@
 import struct
 
 def float_to_ieee754(num: float, precision: str) -> str:
-    """
-    Converts a floating-point number to its IEEE 754 binary string representation.
-    """
     if precision == "single":
         [packed] = struct.unpack('!I', struct.pack('!f', num))
         return f"{packed:032b}"
