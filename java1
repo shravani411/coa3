@@ -1,0 +1,28 @@
+class student
+{
+int id;
+String name;
+float sgpi;
+
+void insert(int i,String n,float s)
+{
+id=i;
+name=n;
+sgpi=s;
+}
+void display()
+{ 
+System.out.println(id +" " +name + " "+ sgpi);
+}public static void main(String args[])
+{
+student s1=new student();
+student s2=new student();
+student s3=new student();
+s1.insert(1, "AAA" ,450);
+s2.insert(2, "BBB" ,390);
+s3.insert(3,  "XYZ",400);
+s1.display( ); 
+s2.display( );
+s3.display( );
+}
+}
